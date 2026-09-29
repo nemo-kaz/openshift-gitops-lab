@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster-config
+  namespace: openshift-gitops
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/nemo-kaz/openshift-gitops-lab.git
+    targetRevision: main
+    path: cluster-config/overlays/sno
+  destination:
+    server: https://kubernetes.default.svc
+  # Manual sync first (no automated block). Enable later:
+  # syncPolicy:
+  #   automated:
+  #     prune: true
+  #     selfHeal: true
